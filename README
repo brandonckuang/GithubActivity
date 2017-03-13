@@ -1,4 +1,4 @@
 # GithubActivity
 Brandon Kuang 998266590
 Faraz Cherukattil
-For the NGINX, name the Docker image brandon and the NGINX container ng2
+To do docker-compose up, build the Docker image brandon and the Docker NGINX image ng2
