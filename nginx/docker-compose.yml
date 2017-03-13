@@ -1,13 +1,13 @@
 version: '2'
 services:
   activity:
-    image: activity
+    image: brandon
 
   ng:
     ports:
      - "8888:8888"
-    image: ng
+    image: ng2
     links:
-     - activity 
+     - activity
 
    
