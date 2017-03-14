@@ -1,0 +1,33 @@
+# GithubActivity
+Brandon Kuang 998266590
+Faraz Cherukattil 913221536
+
+Changes made:
+In GithubQuerier, we changed the implementation so that it will get the users information and search for "PushEvents". If a push event is
+found, then it will go through the JSON data to get the Date, SHA, and the Message associated with the push. This will continue until either
+the loop has went through all of the event pages of the user or it has found 10 push events(since this is the assignment). Added our token 
+so that the number of accesses to the users information will increase.
+
+In the folder hw4, this is where all of our NGINX and Docker stuff is located. 
+In docker-compose.yml, we create two containers called web1 and proxy. Web1 will contain the image of the original implementation by 
+Vincent that we named "activity".  Proxy will contain the nginx image named "hw4_ng".  For this project, the proxy container is binded to 
+the local host 8888 and web1 is binded to the local port 32832.
+
+Then we have the two scripts swap1to2.sh and swap2to1.sh. These scripts will do the swap from web1 to web2 and from web2 to web1 respectively.
+This is done by first killing the older container running and cleaning it up to make sure there are no unlinked containers or networks.
+Then it will run the new image that we want to run with the option to connect to the same network that the proxy container is in. In this
+same docker run, it will name the Docker container to ecs189_web1_1 or ecs189_web2_1 depending on which one we want to start. This allows
+us to use docker commands on specific containers without trying to get the docker container ID. If we did not name the docker container, 
+then docker would have assigned it an arbitrary name. Last, it will assign the public port for the new container we are running. This is 
+how we are going to connect the ngingx proxy to our container. Then it will do a docker exec and go into our proxy container and run the 
+corresponding swap script.
+
+In the nginx-rev folder, we have the swap scripts. 
+Swap1.sh will swap from from web2 to web1 by searching for the web1 address in the file and do a substitution. Then it will reload the 
+nginx service. Swap2.sh does the same thing but it swaps from web1 to web2. These are the files that will be located in the NGINX container
+and that our script from the host machine will run.
+
+To do docker-compose up, build the Docker image brandon and the Docker NGINX image ng2
+./dorun.sh will run web1 using activity image (Vincent's version of the website)
+swap1-2 will swap from web1 to web2
+swap2-1 will swap from web2 to web1

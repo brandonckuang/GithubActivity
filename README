@@ -1,7 +1,0 @@
-# GithubActivity
-Brandon Kuang 998266590
-Faraz Cherukattil 913221536
-To do docker-compose up, build the Docker image brandon and the Docker NGINX image ng2
-./dorun.sh will run web1 using activity image (Vincent's version of the website)
-swap1-2 will swap from web1 to web2
-swap2-1 will swap from web2 to web1
