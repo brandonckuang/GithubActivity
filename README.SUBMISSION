@@ -27,7 +27,10 @@ Swap1.sh will swap from from web2 to web1 by searching for the web1 address in t
 nginx service. Swap2.sh does the same thing but it swaps from web1 to web2. These are the files that will be located in the NGINX container
 and that our script from the host machine will run.
 
-To do docker-compose up, build the Docker image brandon and the Docker NGINX image ng2
-./dorun.sh will run web1 using activity image (Vincent's version of the website)
-swap1-2 will swap from web1 to web2
-swap2-1 will swap from web2 to web1
+To do the hotswap, build the Docker image named "brandon" from the new implementation, the Docker NGINX image "hw4_ng" from /HW4/nginx-rev 
+and the Docker image named "activity" from Vincent's implementation
+Then from the HW4 folder as your current directory, run the dorun.sh. This will initialize the web1 container, nginx, set the proxy_pass to
+a known website and then change it to the first container web1, which is Vincent's implementation. This can be verified by searching
+localhost:8888 in your web browser. Then run swap1to2.sh, which will swap from web1 to web2. Again, confirm this by searching localhost:8888
+and verifying that this is with the new implementation asking for PushEvents.
+
