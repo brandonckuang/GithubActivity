@@ -17,11 +17,11 @@ if [ "$(docker ps | grep ecs189_web1_1)" ]; then
 	docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
 	sleep 5
 
-	docker run --network ecs189_default -d --name ecs189_web2_1 --link ecs189_proxy_1 -p 32832:8080 $1
-	sleep 10
+	docker run --network ecs189_default -d --name ecs189_web2_1 --link ecs189_proxy_1 -p 8080 $1
+	sleep 5
 
-	docker exec ecs189_proxy_1 /bin/bash /bin/swap1.sh
-	sleep 20
+	docker exec ecs189_proxy_1 /bin/bash /bin/swap2.sh
+	sleep 10
 	echo "done swapping"
 	exit
 
@@ -38,11 +38,11 @@ if [ "$(docker ps | grep ecs189_web2_1)" ] ; then
 	docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
 	sleep 5
 
-	docker run --network ecs189_default -d --name ecs189_web1_1 --link ecs189_proxy_1 -p 32832:8080 $1
-	sleep 10
+	docker run --network ecs189_default -d --name ecs189_web1_1 --link ecs189_proxy_1 -p 8080 $1
+	sleep 5
 
 	docker exec ecs189_proxy_1 /bin/bash /bin/swap1.sh
-	sleep 20
+	sleep 10
 	echo "done swapping"
 	exit
 fi
