@@ -19,6 +19,6 @@
 # sleep 20
 
 cd /etc/nginx
-sed -e s?web1:8080/activity/?web2:8080/activity/? <nginx.conf > /tmp/xxx
+sed -e s?ecs189_web1_1:8080/activity/?ecs189_web2_1:8080/activity/? <nginx.conf > /tmp/xxx
 cp /tmp/xxx nginx.conf
 service nginx reload 
