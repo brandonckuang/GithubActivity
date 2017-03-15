@@ -18,7 +18,7 @@ import java.util.List;
 public class GithubQuerier {
 
     private static final String BASE_URL = "https://api.github.com/users/";
-    private static final String token = "OMITTED"; //make sure you block this shit before pushing.
+    private static final String token = "1e722236b38a7891d28ca905235b5a7d905874ed"; //make sure you block this before pushing.
 
     public static String eventsAsHTML(String user) throws IOException, ParseException {
         List<JSONObject> response; // = getEvents(user);
@@ -58,10 +58,10 @@ public class GithubQuerier {
                             JSONObject tempObject2 = tempArray.getJSONObject(j);
                             String temp_sha = tempObject2.getString("sha").substring(0,7); //gets the SHA and cuts the length of string into 8 char
                             //System.out.println("SHA: " + temp_sha);
-                            sb.append("SHA: " + temp_sha);
+                            sb.append("<b> SHA: </b>" + temp_sha);
                             sb.append("<br />"); //line break
                             String temp_msg = tempObject2.getString("message");
-                            sb.append("Message: " + temp_msg);
+                            sb.append("<b> Message: </b>" + temp_msg);
                             sb.append("<br />"); //line break
                             //For cleaner format
                             if(tempArray.length() > 1) {
