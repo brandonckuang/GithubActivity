@@ -4,6 +4,15 @@
 # time1=$(docker inspect ecs189_web2_1)
 # echo $time1 > sample.json
 
+function killitif {
+    docker ps -a  > /tmp/yy_xx$$
+    if grep --quiet $1 /tmp/yy_xx$$
+     then
+     echo "killing older version of $1"
+     docker rm -f `docker ps -a | grep $1  | sed -e 's: .*$::'`
+   fi
+}
+
 if ! [ "$(docker ps | grep ecs189_web1_1)" ]; then
 	echo "docker image ecs189_web1 does not exist"
 	exit
@@ -15,13 +24,11 @@ sleep 5
 docker exec ecs189_proxy_1 /bin/bash /bin/swap2.sh
 sleep 10
 
-docker kill ecs189_web1_1
-sleep 5
+killitif web1
+# docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+# sleep 5
 
-docker rm $(docker ps -qa --no-trunc --filter "status=exited")
-sleep 5
-
-docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
+# docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
 sleep 5
 
 # docker exec ecs189_proxy_1 /bin/bash /bin/swap2.sh
