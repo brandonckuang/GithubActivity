@@ -18,7 +18,7 @@ import java.util.List;
 public class GithubQuerier {
 
     private static final String BASE_URL = "https://api.github.com/users/";
-    private static final String token = "OMIT"; //make sure you block this before pushing.
+    private static final String token = "OMITTED"; //make sure you block this before pushing.
 
     public static String eventsAsHTML(String user) throws IOException, ParseException {
         List<JSONObject> response; // = getEvents(user);
