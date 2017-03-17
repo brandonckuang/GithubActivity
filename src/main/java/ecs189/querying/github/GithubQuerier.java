@@ -26,7 +26,7 @@ public class GithubQuerier {
         sb.append("<div>");
         int i = 0;
         int pageNum = 1;
-        do {
+        do { 
             response = getEvents(user, pageNum);
             for (JSONObject event : response) {
                 if (event.getString("type").equals("PushEvent") && i < 10) {
