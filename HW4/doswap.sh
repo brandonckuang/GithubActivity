@@ -15,11 +15,19 @@ if ! [ "$(docker images | grep $1)" ]; then
 	echo "docker image $1 does not exist"
 	exit
 fi
-if [ "$(docker ps | grep ecs189_web1_1)" ]; then
+if  ! [ "$(docker ps | grep ecs189_web1)" ] && ! [ "$(docker ps | grep ecs189_web2)" ] ; then
+	echo "Neither container web1 or web2 is running"
+	exit
+fi
+if ! [ "$(docker ps | grep ecs189_proxy)" ]; then
+	echo "proxy docker container does not exist/not running"
+	exit
+fi
+if [ "$(docker ps | grep ecs189_web1)" ]; then
 	echo "ecs189_web1_1 running"
 
 
-	docker run --network ecs189_default -d --name ecs189_web2_1 --link ecs189_proxy_1 -p 8080 $1
+	docker run --network ecs189_default -d --name ecs189_web2_1 $1
 	sleep 5
 
 	docker exec ecs189_proxy_1 /bin/bash /bin/swap2.sh
@@ -33,10 +41,10 @@ if [ "$(docker ps | grep ecs189_web1_1)" ]; then
 
 
 fi
-if [ "$(docker ps | grep ecs189_web2_1)" ] ; then
-	echo "ecs189_web2_1"
+if [ "$(docker ps | grep ecs189_web2)" ] ; then
+	echo "ecs189_web2_1 running."
 
-	docker run --network ecs189_default -d --name ecs189_web1_1 --link ecs189_proxy_1 -p 8080 $1
+	docker run --network ecs189_default -d --name ecs189_web1_1 $1
 	sleep 5
 
 	docker exec ecs189_proxy_1 /bin/bash /bin/swap1.sh

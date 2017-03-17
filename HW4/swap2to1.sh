@@ -14,11 +14,11 @@ function killitif {
 }
 
 if ! [ "$(docker ps | grep ecs189_web2_1)" ]; then
-	echo "docker image ecs189_web2 does not exist"
+	echo "docker image ecs189_web2 does not exist/not running"
 	exit
 fi
 
-docker run --network ecs189_default -d --name ecs189_web1_1 --link ecs189_proxy_1:ecs189_proxy_1 -p 8080 activity
+docker run --network ecs189_default -d --name ecs189_web1_1 activity
 sleep 5
 
 docker exec ecs189_proxy_1 /bin/bash /bin/swap1.sh
